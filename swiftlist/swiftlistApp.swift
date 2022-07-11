@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVKit
 
 @main
 struct swiftlistApp: App {
@@ -13,7 +14,9 @@ struct swiftlistApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().onAppear {
+                try? AVAudioSession.sharedInstance().setCategory(.playback)
+            }
         }
     }
 }

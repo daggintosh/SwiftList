@@ -14,6 +14,10 @@
 		1800B476287A39D9004AFD64 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800B475287A39D9004AFD64 /* Persistence.swift */; };
 		1800B479287A39D9004AFD64 /* swiftlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1800B477287A39D9004AFD64 /* swiftlist.xcdatamodeld */; };
 		18330ECC287A778000CDA438 /* InferredPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18330ECB287A778000CDA438 /* InferredPost.swift */; };
+		18BCF2BB287B986C009E3493 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BCF2BA287B986C009E3493 /* PostView.swift */; };
+		18BCF2BD287B9D13009E3493 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BCF2BC287B9D13009E3493 /* CommentView.swift */; };
+		18BCF2BF287BA9AE009E3493 /* ReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BCF2BE287BA9AE009E3493 /* ReplyView.swift */; };
+		18BCF2C1287BB438009E3493 /* ExternalMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BCF2C0287BB438009E3493 /* ExternalMediaView.swift */; };
 		18D87966287A5900009B5AA0 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D87965287A5900009B5AA0 /* AccountView.swift */; };
 		18D87968287A5AB2009B5AA0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D87967287A5AB2009B5AA0 /* HomeView.swift */; };
 		18D8796A287A5BE2009B5AA0 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D87969287A5BE2009B5AA0 /* SearchView.swift */; };
@@ -29,6 +33,11 @@
 		1800B475287A39D9004AFD64 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		1800B478287A39D9004AFD64 /* swiftlist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = swiftlist.xcdatamodel; sourceTree = "<group>"; };
 		18330ECB287A778000CDA438 /* InferredPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferredPost.swift; sourceTree = "<group>"; };
+		18BCF2BA287B986C009E3493 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		18BCF2BC287B9D13009E3493 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		18BCF2BE287BA9AE009E3493 /* ReplyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyView.swift; sourceTree = "<group>"; };
+		18BCF2C0287BB438009E3493 /* ExternalMediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalMediaView.swift; sourceTree = "<group>"; };
+		18BCF2C2287BBAE6009E3493 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		18D87965287A5900009B5AA0 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		18D87967287A5AB2009B5AA0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		18D87969287A5BE2009B5AA0 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -65,6 +74,11 @@
 		1800B46B287A39D8004AFD64 /* swiftlist */ = {
 			isa = PBXGroup;
 			children = (
+				18BCF2C2287BBAE6009E3493 /* Info.plist */,
+				18BCF2BA287B986C009E3493 /* PostView.swift */,
+				18BCF2BC287B9D13009E3493 /* CommentView.swift */,
+				18BCF2BE287BA9AE009E3493 /* ReplyView.swift */,
+				18BCF2C0287BB438009E3493 /* ExternalMediaView.swift */,
 				1800B46C287A39D8004AFD64 /* swiftlistApp.swift */,
 				1800B46E287A39D8004AFD64 /* ContentView.swift */,
 				18D87969287A5BE2009B5AA0 /* SearchView.swift */,
@@ -159,13 +173,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				1800B476287A39D9004AFD64 /* Persistence.swift in Sources */,
+				18BCF2BF287BA9AE009E3493 /* ReplyView.swift in Sources */,
 				1800B46F287A39D8004AFD64 /* ContentView.swift in Sources */,
 				1800B46D287A39D8004AFD64 /* swiftlistApp.swift in Sources */,
 				18D8796A287A5BE2009B5AA0 /* SearchView.swift in Sources */,
 				18D87968287A5AB2009B5AA0 /* HomeView.swift in Sources */,
 				18D87966287A5900009B5AA0 /* AccountView.swift in Sources */,
+				18BCF2C1287BB438009E3493 /* ExternalMediaView.swift in Sources */,
 				18D8796C287A6D95009B5AA0 /* DataStructs.swift in Sources */,
 				18330ECC287A778000CDA438 /* InferredPost.swift in Sources */,
+				18BCF2BB287B986C009E3493 /* PostView.swift in Sources */,
+				18BCF2BD287B9D13009E3493 /* CommentView.swift in Sources */,
 				1800B479287A39D9004AFD64 /* swiftlist.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,6 +316,7 @@
 				DEVELOPMENT_TEAM = Y23FS84988;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = swiftlist/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "SwiftList for Reddit";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -332,6 +351,7 @@
 				DEVELOPMENT_TEAM = Y23FS84988;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = swiftlist/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "SwiftList for Reddit";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

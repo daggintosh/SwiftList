@@ -12,13 +12,13 @@ func inferredView(post: Post) -> some View {
         switch(post.contentType) {
         case "text":
             NavigationLink {
-                EmptyView()
+                PostView(post: post)
             } label: {
-                Text(post.content!).lineLimit(3)
+                Text(post.content!).lineLimit(3).frame(maxWidth: .infinity, alignment: .leading)
             }
         case "video","image","embed","gallery":
             NavigationLink {
-                EmptyView()
+                PostView(post: post)
             } label: {}
             Rectangle().aspectRatio(16/9,contentMode: .fit).foregroundColor(.clear)
             AsyncImage(url: post.thumbnail) { Image in
@@ -27,7 +27,11 @@ func inferredView(post: Post) -> some View {
                 ProgressView().tint(.gray)
             }.aspectRatio(contentMode: .fit).layoutPriority(-1)
         case "link":
-            Link("\(post.urls![0])", destination: post.urls![0]).frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.accentColor)
+            NavigationLink {
+                PostView(post: post)
+            } label: {
+                Text("\(post.urls![0])").frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.accentColor).lineLimit(2)
+            }
         default:
             Text("No Content Type")
         }
