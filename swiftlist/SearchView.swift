@@ -8,13 +8,60 @@
 import SwiftUI
 
 struct SearchView: View {
+    @State var search: String = ""
+    @FocusState var focused: Bool
+    @State var subreddits: Subreddits?
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            ZStack {
+                Rectangle().foregroundColor(Color(.systemGray5)).cornerRadius(10).layoutPriority(-1)
+                TextField("Search for a subreddit", text: $search).padding(10).focused($focused).scrollDismissesKeyboard(.immediately).onSubmit {
+                    if(search.trimmingCharacters(in: .whitespacesAndNewlines) != "") {
+                        focused = false
+                        subreddits = searchSubreddit(q: search)
+                    }
+                }
+            }.padding()
+            Spacer()
+            ZStack {
+                Rectangle().foregroundColor(Color(.systemBackground)).onTapGesture {
+                    focused = false
+                }
+                List {
+                    ForEach(subreddits?.subreddit ?? []) { sub in
+                        NavigationLink {
+                            HomeView(requestedSubreddit: sub.subreddit)
+                        } label: {
+                            HStack {
+                                AsyncImage(url: sub.image) { Image in
+                                    Image.resizable()
+                                } placeholder: {
+                                    
+                                }.aspectRatio(contentMode: .fit).mask {
+                                    Circle()
+                                }.frame(width: 24).aspectRatio(contentMode: .fit)
+                                VStack(alignment: .leading) {
+                                    Text("/r/\(sub.subreddit)").fontWeight(.bold).font(.callout).lineLimit(1)
+                                    Text("\(sub.members.abbreviate) members").font(.caption).fontWeight(.thin)
+                                }
+                                //Text(sub.description).font(.footnote).lineLimit(3)
+                            }
+                        }
+
+                    }
+                }.listStyle(.plain)
+            }
+        }.onAppear {
+            focused = true
+        }
     }
 }
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView()
+        NavigationStack {
+            SearchView()
+        }
     }
 }

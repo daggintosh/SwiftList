@@ -33,7 +33,26 @@ func inferredView(post: Post) -> some View {
                 Text("\(post.urls![0])").frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.accentColor).lineLimit(2)
             }
         default:
-            Text("No Content Type")
+            NavigationLink {
+                PostView(post: post)
+            } label: {
+                Text("Discussion").lineLimit(3).frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+    }
+}
+
+func inferredType(postType: String) -> some View {
+    return ZStack {
+        switch (postType) {
+        case "gallery":
+            Text("Gallery")
+        case "video":
+            Text("Video")
+        case "embed":
+            Text("Embedded")
+        default:
+            EmptyView()
         }
     }
 }

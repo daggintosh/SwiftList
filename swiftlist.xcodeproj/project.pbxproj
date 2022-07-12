@@ -14,6 +14,8 @@
 		1800B476287A39D9004AFD64 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800B475287A39D9004AFD64 /* Persistence.swift */; };
 		1800B479287A39D9004AFD64 /* swiftlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1800B477287A39D9004AFD64 /* swiftlist.xcdatamodeld */; };
 		18330ECC287A778000CDA438 /* InferredPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18330ECB287A778000CDA438 /* InferredPost.swift */; };
+		18AA8414287CD51B00541A3B /* SearchLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AA8413287CD51B00541A3B /* SearchLogic.swift */; };
+		18AA8416287D190800541A3B /* CustomFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AA8415287D190800541A3B /* CustomFormatting.swift */; };
 		18BCF2BB287B986C009E3493 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BCF2BA287B986C009E3493 /* PostView.swift */; };
 		18BCF2BD287B9D13009E3493 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BCF2BC287B9D13009E3493 /* CommentView.swift */; };
 		18BCF2BF287BA9AE009E3493 /* ReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BCF2BE287BA9AE009E3493 /* ReplyView.swift */; };
@@ -33,6 +35,8 @@
 		1800B475287A39D9004AFD64 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		1800B478287A39D9004AFD64 /* swiftlist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = swiftlist.xcdatamodel; sourceTree = "<group>"; };
 		18330ECB287A778000CDA438 /* InferredPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferredPost.swift; sourceTree = "<group>"; };
+		18AA8413287CD51B00541A3B /* SearchLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLogic.swift; sourceTree = "<group>"; };
+		18AA8415287D190800541A3B /* CustomFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFormatting.swift; sourceTree = "<group>"; };
 		18BCF2BA287B986C009E3493 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		18BCF2BC287B9D13009E3493 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		18BCF2BE287BA9AE009E3493 /* ReplyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyView.swift; sourceTree = "<group>"; };
@@ -82,9 +86,11 @@
 				1800B46C287A39D8004AFD64 /* swiftlistApp.swift */,
 				1800B46E287A39D8004AFD64 /* ContentView.swift */,
 				18D87969287A5BE2009B5AA0 /* SearchView.swift */,
+				18AA8415287D190800541A3B /* CustomFormatting.swift */,
 				18D87967287A5AB2009B5AA0 /* HomeView.swift */,
 				18330ECB287A778000CDA438 /* InferredPost.swift */,
 				18D8796B287A6D95009B5AA0 /* DataStructs.swift */,
+				18AA8413287CD51B00541A3B /* SearchLogic.swift */,
 				18D87965287A5900009B5AA0 /* AccountView.swift */,
 				1800B470287A39D9004AFD64 /* Assets.xcassets */,
 				1800B475287A39D9004AFD64 /* Persistence.swift */,
@@ -172,12 +178,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18AA8414287CD51B00541A3B /* SearchLogic.swift in Sources */,
 				1800B476287A39D9004AFD64 /* Persistence.swift in Sources */,
 				18BCF2BF287BA9AE009E3493 /* ReplyView.swift in Sources */,
 				1800B46F287A39D8004AFD64 /* ContentView.swift in Sources */,
 				1800B46D287A39D8004AFD64 /* swiftlistApp.swift in Sources */,
 				18D8796A287A5BE2009B5AA0 /* SearchView.swift in Sources */,
 				18D87968287A5AB2009B5AA0 /* HomeView.swift in Sources */,
+				18AA8416287D190800541A3B /* CustomFormatting.swift in Sources */,
 				18D87966287A5900009B5AA0 /* AccountView.swift in Sources */,
 				18BCF2C1287BB438009E3493 /* ExternalMediaView.swift in Sources */,
 				18D8796C287A6D95009B5AA0 /* DataStructs.swift in Sources */,
@@ -323,12 +331,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1c;
+				"OTHER_SWIFT_FLAGS[arch=*]" = "-Xfrontend -warn-long-function-bodies=100 -Xfrontend -warn-long-expression-type-checking=100";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dagg.swiftlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -358,7 +367,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
