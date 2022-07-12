@@ -20,31 +20,34 @@ struct ReplyView: View {
                     EmptyView()
                 default:
                     HStack {
-                        Divider().padding(.vertical,0)
+                        Divider().frame(width:2).overlay(Color(.systemGray2))
                         VStack {
                             HStack {
-                                Text("/u/\(reply.author!)").fontWeight(.bold)
-                                if (reply.op!) {
+                                Text("/u/\(reply.author!)").fontWeight(.bold).lineLimit(1)
+                                switch(reply.op) {
+                                case true:
                                     Text("OP").fontWeight(.bold).foregroundColor(.accentColor)
-                                }
-                                if (reply.edited!) {
-                                    Text("(edited)").fontWeight(.thin)
+                                default:
+                                    EmptyView()
                                 }
                                 Spacer()
-                                Text(reply.date!.formatted(.relative(presentation: .numeric)))
+                                HStack {
+                                    Text(reply.date!.formatted(.relative(presentation: .numeric)))
+                                    Spacer()
+                                }
                             }.font(.footnote)
                             HStack {
-                                Text(reply.content!).padding(.vertical, 1)
+                                Text(.init(reply.content!)).fixedSize(horizontal: false, vertical: true)
                                 Spacer()
                             }
                             HStack {
                                 Image(systemName: "arrow.up.circle.fill")
                                 Text("\(reply.ups!)").font(.footnote)
                                 Spacer()
-                            }
+                            }.padding(.top, 1)
                             ReplyView(replies: reply.replies, nestCount: nestCount+1)
-                        }.padding(.leading).padding(.top)
-                    }
+                        }.padding(.leading,4)
+                    }.fixedSize(horizontal: false, vertical: true)
                 }
             }
         }

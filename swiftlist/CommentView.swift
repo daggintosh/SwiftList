@@ -14,20 +14,14 @@ struct CommentView: View {
     @State var comments: Comments?
     
     var body: some View {
-        VStack {
+        LazyVStack {
             ForEach(comments?.comment?.dropLast() ?? []) { comment in
                 VStack {
                     HStack {
-                        Text("\(comment.author!)").fontWeight(.bold)
+                        Text("/u/\(comment.author!)").fontWeight(.bold).lineLimit(1)
                         switch(comment.op) {
                         case true:
                             Text("OP").fontWeight(.bold).foregroundColor(.accentColor)
-                        default:
-                            EmptyView()
-                        }
-                        switch(comment.edited) {
-                        case true:
-                            Text("(edited)").fontWeight(.thin)
                         default:
                             EmptyView()
                         }
@@ -38,22 +32,25 @@ struct CommentView: View {
                         }
                     }.font(.footnote)
                     HStack {
-                        Text(.init(comment.content!)).padding(.vertical, 1)
+                        Text(.init(comment.content!)).fixedSize(horizontal: false, vertical: true)
                         Spacer()
                     }
                     HStack {
                         Image(systemName: "arrow.up.circle.fill")
                         Text("\(comment.ups!)").font(.footnote)
                         Spacer()
-                    }
-                    ReplyView(replies: comment.replies)
+                    }.padding(.top, 1)
+                    ReplyView(replies: comment.replies).padding(.top,3)
                 }
                 Divider()
             }.padding(.horizontal)
         }.onAppear {
-            if !doNotRequest {
+            switch (doNotRequest) {
+            case false:
                 comments = getComments(subreddit: subreddit, id: postID)
                 doNotRequest = true
+            default:
+                break
             }
         }
     }

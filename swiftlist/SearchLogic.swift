@@ -6,8 +6,17 @@
 //
 
 import Foundation
+import CoreData
 
 let apiURL: URL = URL(string: "https://www.reddit.com/")!
+
+//func updateToken() {
+//    let context = PersistenceController().container.viewContext
+//    let keychain = Keychain(context: context)
+//    keychain.token = "test token"
+//    keychain.age = Date()
+//    try! context.save()
+//}
 
 func sendRequest(request: URLRequest, decodeType: Decodable.Type, token: String? = nil) -> Any? {
     var reqResult: Any?

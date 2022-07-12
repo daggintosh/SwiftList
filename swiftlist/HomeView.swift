@@ -20,9 +20,10 @@ struct HomeView: View {
                         Text(post.subreddit).fontWeight(.bold)
                         Text(post.author)
                         Text(post.date.formatted(.relative(presentation: .numeric)))
-                    }.lineLimit(1).frame(maxWidth: .infinity, alignment: .leading).font(.footnote).padding(.vertical, 1)
+                        Spacer()
+                    }.lineLimit(1).font(.footnote)
                     VStack {
-                        Text(post.title).fontWeight(.bold).frame(maxWidth: .infinity, alignment: .leading).padding(.vertical,1 )
+                        Text(post.title).fontWeight(.bold).frame(maxWidth: .infinity, alignment: .leading).padding(.vertical,1)
                         inferredView(post: post)
                         HStack {
                             Image(systemName: "arrow.up.circle.fill")
@@ -31,8 +32,9 @@ struct HomeView: View {
                             inferredType(postType: post.contentType)
                         }.padding(.top)
                     }
+                    Divider().frame(height:2).overlay(Color(.systemGray2)).padding(0)
                 }
-            }
+            }.listRowSeparator(.hidden)
         }.navigationTitle(requestedSubreddit ?? "Home").navigationBarTitleDisplayMode(.inline).listStyle(.plain).onAppear {
             if !doNotRequest {
                 posts = getPosts(subreddit: requestedSubreddit)

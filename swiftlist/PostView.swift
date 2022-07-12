@@ -48,18 +48,21 @@ struct PostView: View {
                         Text("\(post.ups)").font(.footnote)
                     }.padding(.horizontal)
                 }.foregroundColor(.primary)
-                Divider().padding(.horizontal)
+                Divider().frame(height:2).overlay(Color(.systemGray2))
                 switch(post.contentType) {
                 case "text","gallery":
-                    Text(.init(post.content ?? "")).padding(.horizontal).frame(maxWidth: .infinity, alignment: .leading).multilineTextAlignment(.leading)
-                    if(post.content != "") {Divider().padding(.horizontal)}
+                    HStack {
+                        Text(.init(post.content ?? "")).padding(.horizontal).multilineTextAlignment(.leading)
+                        Spacer()
+                    }
+                    if(post.content != "") {Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)}
                 case "link":
-                    Link("\(post.urls![0])", destination: post.urls![0]).foregroundColor(.accentColor).frame(maxWidth: .infinity, alignment: .leading).padding(.horizontal)
-                    Divider().padding(.horizontal)
+                    Link("\(post.urls![0])", destination: post.urls![0]).foregroundColor(.accentColor).padding(.horizontal)
+                    Divider().frame(height:2).overlay(Color(.systemGray2))
                 default:
                     EmptyView()
                 }
-                CommentView(subreddit: post.subredditUnprefixed, postID: post.id).padding(.vertical, 1)
+                CommentView(subreddit: post.subredditUnprefixed, postID: post.id)
             }
         }
     }

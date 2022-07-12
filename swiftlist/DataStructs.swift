@@ -248,7 +248,6 @@ struct Comments: Decodable {
     }
     
     init(from decoder: Decoder) throws {
-        print("c1")
         let container = try decoder.container(keyedBy: RootKeys.self)
         let data = try container.nestedContainer(keyedBy: ChildKeys.self, forKey: .data)
         self.comment = try! data.decode([Comment].self, forKey: .children)

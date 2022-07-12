@@ -11,8 +11,6 @@
 		1800B46F287A39D8004AFD64 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800B46E287A39D8004AFD64 /* ContentView.swift */; };
 		1800B471287A39D9004AFD64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1800B470287A39D9004AFD64 /* Assets.xcassets */; };
 		1800B474287A39D9004AFD64 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1800B473287A39D9004AFD64 /* Preview Assets.xcassets */; };
-		1800B476287A39D9004AFD64 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800B475287A39D9004AFD64 /* Persistence.swift */; };
-		1800B479287A39D9004AFD64 /* swiftlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1800B477287A39D9004AFD64 /* swiftlist.xcdatamodeld */; };
 		18330ECC287A778000CDA438 /* InferredPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18330ECB287A778000CDA438 /* InferredPost.swift */; };
 		18AA8414287CD51B00541A3B /* SearchLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AA8413287CD51B00541A3B /* SearchLogic.swift */; };
 		18AA8416287D190800541A3B /* CustomFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AA8415287D190800541A3B /* CustomFormatting.swift */; };
@@ -32,8 +30,6 @@
 		1800B46E287A39D8004AFD64 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1800B470287A39D9004AFD64 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1800B473287A39D9004AFD64 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		1800B475287A39D9004AFD64 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		1800B478287A39D9004AFD64 /* swiftlist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = swiftlist.xcdatamodel; sourceTree = "<group>"; };
 		18330ECB287A778000CDA438 /* InferredPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferredPost.swift; sourceTree = "<group>"; };
 		18AA8413287CD51B00541A3B /* SearchLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLogic.swift; sourceTree = "<group>"; };
 		18AA8415287D190800541A3B /* CustomFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFormatting.swift; sourceTree = "<group>"; };
@@ -93,8 +89,6 @@
 				18AA8413287CD51B00541A3B /* SearchLogic.swift */,
 				18D87965287A5900009B5AA0 /* AccountView.swift */,
 				1800B470287A39D9004AFD64 /* Assets.xcassets */,
-				1800B475287A39D9004AFD64 /* Persistence.swift */,
-				1800B477287A39D9004AFD64 /* swiftlist.xcdatamodeld */,
 				1800B472287A39D9004AFD64 /* Preview Content */,
 			);
 			path = swiftlist;
@@ -179,7 +173,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				18AA8414287CD51B00541A3B /* SearchLogic.swift in Sources */,
-				1800B476287A39D9004AFD64 /* Persistence.swift in Sources */,
 				18BCF2BF287BA9AE009E3493 /* ReplyView.swift in Sources */,
 				1800B46F287A39D8004AFD64 /* ContentView.swift in Sources */,
 				1800B46D287A39D8004AFD64 /* swiftlistApp.swift in Sources */,
@@ -192,7 +185,6 @@
 				18330ECC287A778000CDA438 /* InferredPost.swift in Sources */,
 				18BCF2BB287B986C009E3493 /* PostView.swift in Sources */,
 				18BCF2BD287B9D13009E3493 /* CommentView.swift in Sources */,
-				1800B479287A39D9004AFD64 /* swiftlist.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,7 +247,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Debug;
 		};
@@ -406,19 +398,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		1800B477287A39D9004AFD64 /* swiftlist.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				1800B478287A39D9004AFD64 /* swiftlist.xcdatamodel */,
-			);
-			currentVersion = 1800B478287A39D9004AFD64 /* swiftlist.xcdatamodel */;
-			path = swiftlist.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 1800B461287A39D8004AFD64 /* Project object */;
 }
