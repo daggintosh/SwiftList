@@ -35,8 +35,17 @@ struct HomeView: View {
                     Divider().frame(height:2).overlay(Color(.systemGray2)).padding(0)
                 }
             }.listRowSeparator(.hidden)
-        }.navigationTitle(requestedSubreddit ?? "Home").navigationBarTitleDisplayMode(.inline).listStyle(.plain).onAppear {
-            if !doNotRequest {
+        }.navigationTitle(requestedSubreddit ?? "Home").navigationBarTitleDisplayMode(.inline).listStyle(.plain).task {
+            do {
+                    if !doNotRequest {
+                        await getKeychain()
+                        posts = getPosts(subreddit: requestedSubreddit)
+                        doNotRequest = true
+                    }
+            }
+        }.refreshable {
+            Task {
+                await getKeychain()
                 posts = getPosts(subreddit: requestedSubreddit)
                 doNotRequest = true
             }

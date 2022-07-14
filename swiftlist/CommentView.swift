@@ -14,8 +14,8 @@ struct CommentView: View {
     @State var comments: Comments?
     
     var body: some View {
-        VStack {
-            ForEach(comments?.comment?.dropLast() ?? []) { comment in
+        LazyVStack {
+            ForEach((comments?.comment ?? []).dropLast()) { comment in
                 VStack {
                     HStack {
                         Text("/u/\(comment.author!)").fontWeight(.bold).lineLimit(1)
@@ -43,20 +43,22 @@ struct CommentView: View {
                     ReplyView(replies: comment.replies).padding(.top,3)
                 }.padding(.vertical,2)
             }.padding(.horizontal)
-        }.onAppear {
-            switch (doNotRequest) {
-            case false:
-                comments = getComments(subreddit: subreddit, id: postID)
-                doNotRequest = true
-            default:
-                break
+        }.task {
+            do {
+                switch (doNotRequest) {
+                case false:
+                    comments = getComments(subreddit: subreddit, id: postID)
+                    doNotRequest = true
+                default:
+                    break
+                }
             }
         }
     }
 }
 
-struct CommentView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-    }
-}
+//struct CommentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HomeView()
+//    }
+//}

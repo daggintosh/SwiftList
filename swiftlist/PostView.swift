@@ -36,7 +36,7 @@ struct PostView: View {
                 } label: {
                     HStack {
                         VStack(alignment: .leading) {
-                            Text(post.title).fontWeight(.heavy).lineLimit(2).multilineTextAlignment(.leading)
+                            Text(post.title).fontWeight(.heavy).multilineTextAlignment(.leading)
                             HStack() {
                                 Text(post.subreddit).font(.footnote).fontWeight(.bold).foregroundColor(.accentColor)
                                 Text(post.author).font(.footnote)
@@ -50,18 +50,17 @@ struct PostView: View {
                 }.foregroundColor(.primary)
                 Divider().frame(height:2).overlay(Color(.systemGray2))
                 switch(post.contentType) {
-                case "text","gallery":
-                    HStack {
-                        Text(.init(post.content ?? "")).padding(.horizontal).multilineTextAlignment(.leading)
-                        Spacer()
-                    }
-                    if(post.content != "") {Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)}
                 case "link":
                     Link("\(post.urls![0])", destination: post.urls![0]).foregroundColor(.accentColor).padding(.horizontal)
                     Divider().frame(height:2).overlay(Color(.systemGray2))
                 default:
                     EmptyView()
                 }
+                HStack {
+                    Text(.init(post.content ?? "")).padding(.horizontal).multilineTextAlignment(.leading)
+                    Spacer()
+                }
+                if(post.content != nil && post.content != "") {Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)}
                 CommentView(subreddit: post.subredditUnprefixed, postID: post.id)
             }
         }

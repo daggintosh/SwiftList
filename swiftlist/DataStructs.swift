@@ -135,12 +135,12 @@ struct Post: Identifiable,Decodable {
         
         let mediaContainer = try? post.nestedContainer(keyedBy: MediaKeys.self, forKey: .secure_media)
         let videoKeys = try? mediaContainer?.nestedContainer(keyedBy: VideoKeys.self, forKey: .reddit_video)
-        let videoString = try? videoKeys?.decodeIfPresent(String.self, forKey: .hls_url) ?? ""
+        let videoString = try? videoKeys?.decodeIfPresent(String.self, forKey: .hls_url)?.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) ?? ""
         
         let thumburl = try post.decodeIfPresent(String.self, forKey: .thumbnail)
         self.thumbnail = URL(string: thumburl ?? "https://google.com")
         
-        let urlString = try post.decodeIfPresent(String.self, forKey: .url) ?? ""
+        let urlString = try post.decodeIfPresent(String.self, forKey: .url)?.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) ?? ""
         
         let embedContainer = try? post.nestedContainer(keyedBy: EmbedKeys.self, forKey: .secure_media_embed)
         self.content = try? embedContainer?.decodeIfPresent(String.self, forKey: .content)
@@ -182,6 +182,7 @@ struct Post: Identifiable,Decodable {
             self.urls = [URL(string: urlString)!]
         default:
             self.contentType = "link"
+            self.content = text
             self.urls = [URL(string: urlString)!]
         }
         if galleryMeta != nil {
@@ -195,34 +196,15 @@ struct Post: Identifiable,Decodable {
     }
 }
 
-//struct Replies {
-//    let reply: [Reply]
-//
-//    enum RootKeys: CodingKey {
-//        case data
-//    }
-//
-//    enum ChildKeys: CodingKey {
-//        case children
-//    }
-//
-//    init(from decoder: Decoder) throws {
-//        let rootContainer = try decoder.container(keyedBy: RootKeys.self)
-//        let data = try rootContainer.nestedContainer(keyedBy: ChildKeys.self, forKey: .data)
-//        self.reply = try data.decode([Reply].self, forKey: .children)
-//    }
-//}
-//
-//struct Reply: Decodable, Identifiable {
-//    let id: String
-//    let author: String
-//    let date: Date
-//    let content: String
-//    let edited: Bool
-//    let op: Bool
-//    let ups: Int = 0
-//    var replies: [Reply]? = []
-//}
+struct Appchain: Decodable {
+    let clientId: String
+    let secret: String
+}
+
+struct OauthReturn: Decodable {
+    let access_token: String
+    let expires_in: Date
+}
 
 struct RootComments: Decodable {
     let comments: [Comments?]

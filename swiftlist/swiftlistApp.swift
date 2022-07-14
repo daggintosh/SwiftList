@@ -13,9 +13,11 @@ struct swiftlistApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView().onAppear {
-                try? AVAudioSession.sharedInstance().setCategory(.playback)
-            }
+            ContentView().task {
+                do {
+                    try? AVAudioSession.sharedInstance().setCategory(.playback)
+                }
+            }.environment(\.managedObjectContext, Persist.shared.container.viewContext)
         }
     }
 }
