@@ -16,32 +16,35 @@ struct CommentView: View {
     var body: some View {
         LazyVStack {
             ForEach((comments?.comment ?? []).dropLast()) { comment in
-                VStack {
-                    HStack {
-                        Text("/u/\(comment.author!)").fontWeight(.bold).lineLimit(1)
-                        switch(comment.op) {
-                        case true:
-                            Text("OP").fontWeight(.bold).foregroundColor(.accentColor)
-                        default:
-                            EmptyView()
-                        }
-                        Spacer()
+                HStack {
+                    Divider().frame(width:2).overlay(Color(.systemGray2))
+                    VStack {
                         HStack {
-                            Text(comment.date!.formatted(.relative(presentation: .numeric)))
+                            Text("/u/\(comment.author!)").fontWeight(.bold).lineLimit(1)
+                            switch(comment.op) {
+                            case true:
+                                Text("OP").fontWeight(.bold).foregroundColor(.accentColor)
+                            default:
+                                EmptyView()
+                            }
+                            Spacer()
+                            HStack {
+                                Text(comment.date!.formatted(.relative(presentation: .numeric)))
+                                Spacer()
+                            }
+                        }.font(.footnote)
+                        HStack {
+                            Text(.init(comment.content!)).fixedSize(horizontal: false, vertical: true)
                             Spacer()
                         }
-                    }.font(.footnote)
-                    HStack {
-                        Text(.init(comment.content!)).fixedSize(horizontal: false, vertical: true)
-                        Spacer()
-                    }
-                    HStack {
-                        Image(systemName: "arrow.up")
-                        Text("\(comment.ups!)")
-                        Spacer()
-                    }.padding(.top, 1).fontWeight(.bold).foregroundColor(.accentColor)
-                    ReplyView(replies: comment.replies).padding(.top,3)
-                }.padding(.vertical,2)
+                        HStack {
+                            Image(systemName: "arrow.up")
+                            Text("\(comment.ups!)")
+                            Spacer()
+                        }.padding(.top, 1).fontWeight(.bold).foregroundColor(.accentColor)
+                        ReplyView(replies: comment.replies).padding(.top,3)
+                    }.padding(.vertical,2)
+                }
             }.padding(.horizontal)
         }.task {
             do {
