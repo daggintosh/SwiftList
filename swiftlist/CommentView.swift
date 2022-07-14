@@ -14,7 +14,7 @@ struct CommentView: View {
     @State var comments: Comments?
     
     var body: some View {
-        LazyVStack {
+        VStack {
             ForEach(comments?.comment?.dropLast() ?? []) { comment in
                 VStack {
                     HStack {
@@ -41,8 +41,7 @@ struct CommentView: View {
                         Spacer()
                     }.padding(.top, 1)
                     ReplyView(replies: comment.replies).padding(.top,3)
-                }
-                Divider()
+                }.padding(.vertical,2)
             }.padding(.horizontal)
         }.onAppear {
             switch (doNotRequest) {
@@ -56,8 +55,8 @@ struct CommentView: View {
     }
 }
 
-//struct CommentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PostView().navigationBarTitleDisplayMode(.inline)
-//    }
-//}
+struct CommentView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView()
+    }
+}

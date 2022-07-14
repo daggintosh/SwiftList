@@ -29,12 +29,13 @@ extension Int64 {
         for (index, num) in intervals.enumerated() {
             potential = Double(number) / Double(num)
             if(potential > 1.0 && potential < 1000.0) {
+                let formatter: NumberFormatter = NumberFormatter()
+                formatter.maximumFractionDigits = 0
                 if(index == 0) {
-                    output = "\(potential)"
+                    let nout = formatter.string(from: potential as NSNumber)!
+                    output = "\(nout)"
                 }
                 else {
-                    let formatter: NumberFormatter = NumberFormatter()
-                    formatter.maximumFractionDigits = 0
                     let nout = formatter.string(from: potential as NSNumber)!
                     output = "\(nout)\(dn[index-1])"
                 }

@@ -259,7 +259,8 @@ struct Comment: Decodable, Identifiable {
     var author: String?
     var date: Date?
     var content: String?
-    var edited: Bool? = false
+//    Not functional(?)
+//    var edited: Bool? = false
     var op: Bool?
     var ups: Int?
     var replies: Comments?
@@ -269,7 +270,7 @@ struct Comment: Decodable, Identifiable {
     }
     
     enum CommentKeys: CodingKey {
-        case id, author, created, body, is_submitter, edited, ups, replies,title, subreddit
+        case id, author, created, body, is_submitter, ups, replies,title, subreddit
     }
     
     init(from decoder: Decoder) throws {
@@ -280,7 +281,6 @@ struct Comment: Decodable, Identifiable {
         self.author = try comment.decodeIfPresent(String.self, forKey: .author) ?? ""
         self.date = try comment.decodeIfPresent(Date.self, forKey: .created) ?? Date()
         self.content = try comment.decodeIfPresent(String.self, forKey: .body) ?? ""
-        //self.edited = try? comment.decode(Bool.self, forKey: .edited)
         self.op = try comment.decodeIfPresent(Bool.self, forKey: .is_submitter) ?? false
         self.ups = try comment.decodeIfPresent(Int.self, forKey: .ups) ?? 0
         self.replies = try? comment.decodeIfPresent(Comments.self, forKey: .replies)
