@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct PostView: View {
-    @State var doNotRequest: Bool = false
+    @State private var doNotRequest: Bool = false
     @State var post: Post
-    @State var comments: Comments?
+    @State private var comments: Comments?
     
     var body: some View {
         VStack {
@@ -58,11 +58,16 @@ struct PostView: View {
                 default:
                     EmptyView()
                 }
-                HStack {
-                    Text(.init(post.content ?? "")).padding(.horizontal).multilineTextAlignment(.leading)
-                    Spacer()
+                switch post.contentType {
+                case "embed":
+                    EmptyView()
+                default:
+                    HStack {
+                        Text(.init(post.content ?? "")).padding(.horizontal).multilineTextAlignment(.leading)
+                        Spacer()
+                    }
                 }
-                if(post.content != nil && post.content != "") {Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)}
+                if(post.content != nil && post.content != "" && post.contentType != "embed") {Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)}
                 CommentView(subreddit: post.subredditUnprefixed, postID: post.id)
             }
         }

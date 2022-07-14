@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ReplyView: View {
     @State var replies: Comments?
-    let nestLimit: Int = 3
+    private let nestLimit: Int = 3
     @State var nestCount: Int = 0
     
     var body: some View {

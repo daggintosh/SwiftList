@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct CommentView: View {
-    @State var doNotRequest: Bool = false
+    @State private var doNotRequest: Bool = false
     let subreddit: String
     let postID: String
-    @State var comments: Comments?
+    @State private var comments: Comments?
     
     var body: some View {
         LazyVStack {

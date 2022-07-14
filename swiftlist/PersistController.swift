@@ -22,14 +22,6 @@ struct Persist {
             }
         }
     }
-    
-    func save() {
-        let context = container.viewContext
-        
-        if context.hasChanges {
-            try? context.save()
-        }
-    }
 }
 
 

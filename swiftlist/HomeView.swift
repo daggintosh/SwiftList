@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State var doNotRequest: Bool = false
-    @State var posts: Posts?
+    @State private var doNotRequest: Bool = false
+    @State private var posts: Posts?
     @State var requestedSubreddit: String? = nil
     
     var body: some View {

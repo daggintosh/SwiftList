@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct SearchView: View {
-    @State var search: String = ""
-    @FocusState var focused: Bool
-    @State var subreddits: Subreddits?
+    @State private var search: String = ""
+    @FocusState private var focused: Bool
+    @State private var subreddits: Subreddits?
     
     var body: some View {
         VStack {
