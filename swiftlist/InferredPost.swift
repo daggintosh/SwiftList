@@ -16,7 +16,7 @@ func inferredView(post: Post) -> some View {
             } label: {
                 Text(post.content!).lineLimit(3).frame(maxWidth: .infinity, alignment: .leading)
             }
-        case "video","image","embed","gallery":
+        case "video","image","embed","gallery","hybrid:gallery,video":
             NavigationLink {
                 PostView(post: post)
             } label: {}

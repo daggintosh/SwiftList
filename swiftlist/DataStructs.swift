@@ -147,9 +147,10 @@ struct Post: Identifiable,Decodable {
         
         struct galleryKeys: Decodable {
             let url: URL
+            let hlsPresent: Bool
             
             enum SourceKeys: CodingKey {
-                case s
+                case s,hlsUrl
             }
             
             enum URLKeys: CodingKey {
@@ -158,10 +159,16 @@ struct Post: Identifiable,Decodable {
             
             init(from decoder: Decoder) throws {
                 let container = try decoder.container(keyedBy: SourceKeys.self)
-                let source = try container.nestedContainer(keyedBy: URLKeys.self, forKey: .s)
-                let urlString = try source.decodeIfPresent(String.self, forKey: .u) ?? ""
-                
-                self.url = URL(string: urlString)!
+                let source = try? container.nestedContainer(keyedBy: URLKeys.self, forKey: .s)
+                let urlString = try source?.decodeIfPresent(String.self, forKey: .u)
+                let videoString = try container.decodeIfPresent(String.self, forKey: .hlsUrl)
+                if videoString != nil {
+                    self.hlsPresent = true
+                }
+                else {
+                    self.hlsPresent = false
+                }
+                self.url = URL(string: urlString ?? videoString!)!
             }
         }
         
@@ -190,6 +197,9 @@ struct Post: Identifiable,Decodable {
             self.content = text
             for key in galleryMeta!.allKeys {
                 let key = try galleryMeta!.decode(galleryKeys.self, forKey: .init(stringValue: key.stringValue)!)
+                if key.hlsPresent {
+                    self.contentType = "hybrid:gallery,video"
+                }
                 urls?.append(key.url)
             }
         }

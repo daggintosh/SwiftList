@@ -29,13 +29,13 @@ struct ContentView: View {
                 HomeView(requestedSubreddit: "all")
             }.tabItem {
                 Image(systemName: "star.fill")
-                Text("All")
+                Text("Popular")
             }.tag(2)
             NavigationView{
                 SearchView()
             }.tabItem {
                 Image(systemName: "magnifyingglass")
-                Text("Search")
+                Text("Subreddits")
             }.tag(3)
             NavigationView{
                 AccountView()

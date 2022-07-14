@@ -28,6 +28,15 @@ struct PostView: View {
                             
                         }.aspectRatio(contentMode: .fit).padding(.bottom, 1)
                     }
+                case "hybrid:gallery,video":
+                    AVView(videoURL: post.urls![0])
+                    ForEach(post.urls!.reversed(), id: \.self) { img in
+                        AsyncImage(url: img) { Image in
+                            Image.resizable()
+                        } placeholder: {
+                            
+                        }.aspectRatio(contentMode: .fit).padding(.bottom, 1)
+                    }
                 default:
                     EmptyView()
                 }
