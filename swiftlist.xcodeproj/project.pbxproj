@@ -15,6 +15,7 @@
 		180CF606287FD0940017E1AD /* Keychain.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 180CF604287FD0940017E1AD /* Keychain.xcdatamodeld */; };
 		18330ECC287A778000CDA438 /* InferredPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18330ECB287A778000CDA438 /* InferredPost.swift */; };
 		18808847287FD11D0057E6CA /* PersistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18808846287FD11C0057E6CA /* PersistController.swift */; };
+		18808849287FF7D00057E6CA /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18808848287FF7D00057E6CA /* Launch Screen.storyboard */; };
 		18AA8414287CD51B00541A3B /* RedditLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AA8413287CD51B00541A3B /* RedditLogic.swift */; };
 		18AA8416287D190800541A3B /* CustomFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AA8415287D190800541A3B /* CustomFormatting.swift */; };
 		18BCF2BB287B986C009E3493 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BCF2BA287B986C009E3493 /* PostView.swift */; };
@@ -37,6 +38,7 @@
 		180CF605287FD0940017E1AD /* Keychain.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Keychain.xcdatamodel; sourceTree = "<group>"; };
 		18330ECB287A778000CDA438 /* InferredPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferredPost.swift; sourceTree = "<group>"; };
 		18808846287FD11C0057E6CA /* PersistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistController.swift; sourceTree = "<group>"; };
+		18808848287FF7D00057E6CA /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		18AA8413287CD51B00541A3B /* RedditLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditLogic.swift; sourceTree = "<group>"; };
 		18AA8415287D190800541A3B /* CustomFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFormatting.swift; sourceTree = "<group>"; };
 		18BCF2BA287B986C009E3493 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 		1800B46B287A39D8004AFD64 /* swiftlist */ = {
 			isa = PBXGroup;
 			children = (
+				18808848287FF7D00057E6CA /* Launch Screen.storyboard */,
 				18BCF2C2287BBAE6009E3493 /* Info.plist */,
 				18BCF2BA287B986C009E3493 /* PostView.swift */,
 				18BCF2BC287B9D13009E3493 /* CommentView.swift */,
@@ -171,6 +174,7 @@
 			files = (
 				180CF603287FC3960017E1AD /* Appchain.plist in Resources */,
 				1800B474287A39D9004AFD64 /* Preview Assets.xcassets in Resources */,
+				18808849287FF7D00057E6CA /* Launch Screen.storyboard in Resources */,
 				1800B471287A39D9004AFD64 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,17 +327,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = stpc2.3.220713;
+				CURRENT_PROJECT_VERSION = stpc2.3.220714;
 				DEVELOPMENT_ASSET_PATHS = "\"swiftlist/Preview Content\"";
 				DEVELOPMENT_TEAM = Y23FS84988;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = swiftlist/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "SwiftList for Reddit";
+				INFOPLIST_KEY_CFBundleDisplayName = SwiftList;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -341,7 +346,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3a;
+				MARKETING_VERSION = 0.3.1b;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dagg.swiftlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -361,17 +366,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = stpc2.3.220713;
+				CURRENT_PROJECT_VERSION = stpc2.3.220714;
 				DEVELOPMENT_ASSET_PATHS = "\"swiftlist/Preview Content\"";
 				DEVELOPMENT_TEAM = Y23FS84988;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = swiftlist/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "SwiftList for Reddit";
+				INFOPLIST_KEY_CFBundleDisplayName = SwiftList;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -379,7 +385,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3a;
+				MARKETING_VERSION = 0.3.1b;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dagg.swiftlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

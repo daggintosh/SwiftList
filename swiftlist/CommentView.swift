@@ -36,10 +36,10 @@ struct CommentView: View {
                         Spacer()
                     }
                     HStack {
-                        Image(systemName: "arrow.up.circle.fill")
-                        Text("\(comment.ups!)").font(.footnote)
+                        Image(systemName: "arrow.up")
+                        Text("\(comment.ups!)")
                         Spacer()
-                    }.padding(.top, 1)
+                    }.padding(.top, 1).fontWeight(.bold).foregroundColor(.accentColor)
                     ReplyView(replies: comment.replies).padding(.top,3)
                 }.padding(.vertical,2)
             }.padding(.horizontal)

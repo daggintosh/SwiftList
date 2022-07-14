@@ -26,11 +26,11 @@ struct HomeView: View {
                         Text(post.title).fontWeight(.bold).frame(maxWidth: .infinity, alignment: .leading).padding(.vertical,1)
                         inferredView(post: post)
                         HStack {
-                            Image(systemName: "arrow.up.circle.fill")
-                            Text("\(post.ups)")
+                            Image(systemName: "arrow.up").foregroundColor(.accentColor)
+                            Text("\(post.ups)").foregroundColor(.accentColor)
                             Spacer()
                             inferredType(postType: post.contentType)
-                        }.padding(.top)
+                        }.padding(.top).fontWeight(.bold)
                     }
                     Divider().frame(height:2).overlay(Color(.systemGray2)).padding(0)
                 }

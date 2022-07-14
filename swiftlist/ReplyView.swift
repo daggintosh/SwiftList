@@ -41,10 +41,10 @@ struct ReplyView: View {
                                 Spacer()
                             }
                             HStack {
-                                Image(systemName: "arrow.up.circle.fill")
-                                Text("\(reply.ups!)").font(.footnote)
+                                Image(systemName: "arrow.up")
+                                Text("\(reply.ups!)")
                                 Spacer()
-                            }.padding(.top, 1)
+                            }.padding(.top, 1).fontWeight(.bold).foregroundColor(.accentColor)
                             ReplyView(replies: reply.replies, nestCount: nestCount+1)
                         }.padding(.leading,4)
                     }.fixedSize(horizontal: false, vertical: true)

@@ -36,16 +36,18 @@ struct PostView: View {
                 } label: {
                     HStack {
                         VStack(alignment: .leading) {
-                            Text(post.title).fontWeight(.heavy).multilineTextAlignment(.leading)
-                            HStack() {
+                            Text(post.title).fontWeight(.heavy).multilineTextAlignment(.leading).lineLimit(nil).fixedSize(horizontal: false, vertical: true)
+                            HStack {
                                 Text(post.subreddit).font(.footnote).fontWeight(.bold).foregroundColor(.accentColor)
                                 Text(post.author).font(.footnote)
                             }
-                            Text(post.date.formatted(date: .abbreviated, time: .omitted)).font(.footnote)
+                            HStack {
+                                Text(post.date.formatted(date: .abbreviated, time: .omitted))
+                                Image(systemName: "arrow.up").fontWeight(.bold).foregroundColor(.accentColor)
+                                Text("\(post.ups)").fontWeight(.bold).foregroundColor(.accentColor)
+                            }.font(.footnote)
                         }.lineLimit(1)
                         Spacer()
-                        Image(systemName: "arrow.up.circle.fill").font(.footnote)
-                        Text("\(post.ups)").font(.footnote)
                     }.padding(.horizontal)
                 }.foregroundColor(.primary)
                 Divider().frame(height:2).overlay(Color(.systemGray2))
