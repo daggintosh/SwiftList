@@ -64,6 +64,7 @@ func getKeychain(action: String? = nil) async {
         try! context.save()
         token = nil
         expire = nil
+        apiURL = URL(string: "https://www.reddit.com")!
         return
     }
     if(result[0].expiryDate! < Date()) {
