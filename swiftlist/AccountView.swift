@@ -36,7 +36,7 @@ struct AccountView: View {
                 Button {
                     state = UUID()
                     let clientId: String = getAppchain().clientId
-                    openURL(URL(string: "https://www.reddit.com/api/v1/authorize?client_id=\(clientId)&response_type=code&state=\(state!)&redirect_uri=swiftlist://authorize&duration=temporary&scope=read,identity")!)
+                    openURL(URL(string: "https://www.reddit.com/api/v1/authorize.compact?client_id=\(clientId)&response_type=code&state=\(state!)&redirect_uri=swiftlist://authorize&duration=temporary&scope=read,identity")!)
                 } label: {
                     HStack {
                         Image(systemName: "door.left.hand.open")
