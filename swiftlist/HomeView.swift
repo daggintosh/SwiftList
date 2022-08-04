@@ -32,9 +32,9 @@ struct HomeView: View {
                             inferredType(postType: post.contentType)
                         }.padding(.top).fontWeight(.bold)
                     }
-                    Divider().frame(height:2).overlay(Color(.systemGray2)).padding(0)
-                }
-            }.listRowSeparator(.hidden)
+                    Divider().frame(height:2).overlay(Color(.systemGray2))
+                }.padding(.horizontal).padding(.top).fixedSize(horizontal: false, vertical: true)
+            }.listRowSeparator(.hidden).listRowInsets(EdgeInsets())
         }.navigationTitle(requestedSubreddit ?? "Home").navigationBarTitleDisplayMode(.inline).listStyle(.plain).task {
             do {
                     if !doNotRequest {

@@ -16,8 +16,6 @@ struct CommentView: View {
     var body: some View {
         LazyVStack {
             ForEach((comments?.comment ?? []).dropLast()) { comment in
-                HStack {
-                    Divider().frame(width:2).overlay(Color(.systemGray2))
                     VStack {
                         HStack {
                             Text("/u/\(comment.author!)").fontWeight(.bold).lineLimit(1)
@@ -43,8 +41,8 @@ struct CommentView: View {
                             Spacer()
                         }.padding(.top, 1).fontWeight(.bold).foregroundColor(.accentColor)
                         ReplyView(replies: comment.replies).padding(.top,3)
+                        Divider().frame(height: 2).overlay(Color(.systemGray2))
                     }.padding(.vertical,2)
-                }
             }.padding(.horizontal)
         }.task {
             do {

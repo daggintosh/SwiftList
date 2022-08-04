@@ -59,11 +59,11 @@ struct PostView: View {
                         Spacer()
                     }.padding(.horizontal)
                 }.foregroundColor(.primary)
-                Divider().frame(height:2).overlay(Color(.systemGray2))
+                Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)
                 switch(post.contentType) {
                 case "link":
                     Link("\(post.urls![0])", destination: post.urls![0]).foregroundColor(.accentColor).padding(.horizontal)
-                    Divider().frame(height:2).overlay(Color(.systemGray2))
+                    Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)
                 default:
                     EmptyView()
                 }
