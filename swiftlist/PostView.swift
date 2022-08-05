@@ -15,29 +15,25 @@ struct PostView: View {
     var body: some View {
         VStack {
             ScrollView {
-                switch(post.contentType) {
-                case "video":
-                    AVView(videoURL: post.urls![0]).aspectRatio(16/9, contentMode: .fit)
-                case "embed":
-                    WKVView(body: post.content ?? "").aspectRatio(16/9, contentMode: .fit)
-                case "gallery","image":
-                    ForEach(post.urls!.reversed(), id: \.self) { img in
-                        AsyncImage(url: img) { Image in
+                switch post.embed {
+                case .some:
+                    WKVView(body: post.embed).aspectRatio(16/9, contentMode: .fit)
+                case .none:
+                    EmptyView()
+                }
+                switch post.urls {
+                case .some:
+                    if (post.urls?[0].video == true) {
+                        AVView(videoURL: post.urls![0]).aspectRatio(16/9, contentMode: .fit)
+                    }
+                    ForEach(post.urls!.reversed(), id: \.self) { element in
+                        AsyncImage(url: element) { Image in
                             Image.resizable()
                         } placeholder: {
                             
                         }.aspectRatio(contentMode: .fit).padding(.bottom, 1)
                     }
-                case "hybrid:gallery,video":
-                    AVView(videoURL: post.urls![0])
-                    ForEach(post.urls!.reversed(), id: \.self) { img in
-                        AsyncImage(url: img) { Image in
-                            Image.resizable()
-                        } placeholder: {
-                            
-                        }.aspectRatio(contentMode: .fit).padding(.bottom, 1)
-                    }
-                default:
+                case .none:
                     EmptyView()
                 }
                 NavigationLink {
@@ -60,23 +56,26 @@ struct PostView: View {
                     }.padding(.horizontal)
                 }.foregroundColor(.primary)
                 Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)
-                switch(post.contentType) {
-                case "link":
-                    Link("\(post.urls![0])", destination: post.urls![0]).foregroundColor(.accentColor).padding(.horizontal)
-                    Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)
-                default:
-                    EmptyView()
-                }
-                switch post.contentType {
-                case "embed":
-                    EmptyView()
-                default:
+                switch(post.content) {
+                case .some:
                     HStack {
                         Text(.init(post.content ?? "")).padding(.horizontal).multilineTextAlignment(.leading)
                         Spacer()
                     }
+                    Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)
+                case .none:
+                    EmptyView()
                 }
-                if(post.content != nil && post.content != "" && post.contentType != "embed") {Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)}
+                switch post.urls?[0].blacklist {
+                case false:
+                    HStack {
+                        Link("\(post.urls![0])", destination: post.urls![0]).foregroundColor(.accentColor).padding(.horizontal).multilineTextAlignment(.leading)
+                        Spacer()
+                    }
+                    Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)
+                default:
+                    EmptyView()
+                }
                 CommentView(subreddit: post.subredditUnprefixed, postID: post.id)
             }
         }

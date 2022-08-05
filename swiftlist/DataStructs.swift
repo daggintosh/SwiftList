@@ -84,6 +84,7 @@ struct Post: Identifiable,Decodable {
     var content: String? = nil
     var urls: [URL]? = nil
     var thumbnail: URL? = nil
+    var embed: String? = nil
     
     enum ItemKeys: CodingKey {
         case data
@@ -128,22 +129,23 @@ struct Post: Identifiable,Decodable {
         self.subreddit = "/r/\(subredditUnprefixed)"
         self.date = try post.decode(Date.self, forKey: .created)
         self.title = try post.decode(String.self, forKey: .title)
-        let postHint = try post.decodeIfPresent(String.self, forKey: .post_hint) ?? ""
+        //let postHint = try post.decodeIfPresent(String.self, forKey: .post_hint) ?? ""
         self.ups = try post.decode(Int.self, forKey: .ups)
-        var text = try post.decodeIfPresent(String.self, forKey: .selftext)
+        var text: String? = try post.decodeIfPresent(String.self, forKey: .selftext)
         text = text?.removingPercentEncoding
+        if text == "" {text = nil}
         
         let mediaContainer = try? post.nestedContainer(keyedBy: MediaKeys.self, forKey: .secure_media)
         let videoKeys = try? mediaContainer?.nestedContainer(keyedBy: VideoKeys.self, forKey: .reddit_video)
-        let videoString = try? videoKeys?.decodeIfPresent(String.self, forKey: .hls_url)?.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) ?? ""
+        let videoString = try? videoKeys?.decodeIfPresent(String.self, forKey: .hls_url)?.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
         
         let thumburl = try post.decodeIfPresent(String.self, forKey: .thumbnail)
         self.thumbnail = URL(string: thumburl ?? "https://google.com")
         
-        let urlString = try post.decodeIfPresent(String.self, forKey: .url)?.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) ?? ""
+        let urlString = try post.decodeIfPresent(String.self, forKey: .url)?.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
         
         let embedContainer = try? post.nestedContainer(keyedBy: EmbedKeys.self, forKey: .secure_media_embed)
-        self.content = try? embedContainer?.decodeIfPresent(String.self, forKey: .content)
+        self.embed = try? embedContainer?.decodeIfPresent(String.self, forKey: .content)
         
         struct galleryKeys: Decodable {
             let url: URL
@@ -173,37 +175,54 @@ struct Post: Identifiable,Decodable {
         }
         
         let galleryMeta = try? post.nestedContainer(keyedBy: GalleryKeys.self, forKey: .media_metadata)
+//        let PostType = PostTypes()
         
-        self.contentType = postHint
-        switch(postHint) {
-        case "text":
-            self.content = text
-        case "image":
-            self.urls = [URL(string: urlString)!]
-        case "hosted:video":
-            self.contentType = "video"
-            self.urls = [URL(string: videoString!)!]
-        case "rich:video":
-            self.contentType = "embed"
-        case "link":
-            self.urls = [URL(string: urlString)!]
-        default:
-            self.contentType = "link"
-            self.content = text
-            self.urls = [URL(string: urlString)!]
-        }
+        self.content = text
+        self.urls = [URL(string: videoString ?? urlString ?? "https://google.com")!]
+        self.contentType = "generic"
+        
+//        switch(postHint) {
+//        case "text":
+//            self.content = text
+//            self.contentType = PostType.text
+//        case "image":
+//            self.urls = [URL(string: urlString)!]
+//            self.contentType = PostType.image
+//        case "hosted:video":
+//            self.contentType = PostType.video
+//            self.urls = [URL(string: videoString!)!]
+//        case "rich:video":
+//            self.contentType = PostType.embed
+//        case "link":
+//            self.contentType = PostType.link
+//            self.urls = [URL(string: urlString)!]
+//        default:
+//            self.contentType = PostType.link
+//            self.content = text
+//            self.urls = [URL(string: urlString)!]
+//        }
         if galleryMeta != nil {
-            self.contentType = "gallery"
-            self.content = text
+//            self.contentType = PostType.gallery
+//            self.content = text
             for key in galleryMeta!.allKeys {
                 let key = try galleryMeta!.decode(galleryKeys.self, forKey: .init(stringValue: key.stringValue)!)
-                if key.hlsPresent {
-                    self.contentType = "hybrid:gallery,video"
-                }
+//                if key.hlsPresent {
+//                    self.contentType = PostType.hybrid
+//                }
                 urls?.append(key.url)
             }
         }
     }
+}
+
+struct PostTypes {
+    let hybrid: String = "hybrid:gallery,video"
+    let gallery: String = "gallery"
+    let link: String = "link"
+    let embed: String = "rich:video"
+    let video: String = "hosted:video"
+    let image: String = "image"
+    let text: String = "text"
 }
 
 struct Appchain: Decodable {
