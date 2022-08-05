@@ -40,14 +40,14 @@ struct SearchView: View {
                         }
 
                     }
-                }.listStyle(.plain)
+                }.listStyle(.plain).scrollDismissesKeyboard(.immediately)
             }
             Spacer()
             ZStack {
                 Rectangle().foregroundColor(Color(.systemGray5)).cornerRadius(10).layoutPriority(-1)
                 HStack {
                     Image(systemName: "magnifyingglass")
-                    TextField("Search for a subreddit", text: $search).focused($focused).scrollDismissesKeyboard(.immediately).onSubmit {
+                    TextField("Search for a subreddit", text: $search).focused($focused).onSubmit {
                         if(search.trimmingCharacters(in: .whitespacesAndNewlines) != "") {
                             focused = false
                             subreddits = searchSubreddit(q: search)

@@ -36,35 +36,20 @@ struct PostView: View {
                 case .none:
                     EmptyView()
                 }
-                NavigationLink {
-                    HomeView(requestedSubreddit: post.subredditUnprefixed)
-                } label: {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(post.title).fontWeight(.heavy).multilineTextAlignment(.leading).lineLimit(nil).fixedSize(horizontal: false, vertical: true)
-                            HStack {
-                                Text(post.subreddit).font(.footnote).fontWeight(.bold).foregroundColor(.accentColor)
-                                Text(post.author).font(.footnote)
-                            }
-                            HStack {
-                                Text(post.date.formatted(date: .abbreviated, time: .omitted))
-                                Image(systemName: "arrow.up").fontWeight(.bold).foregroundColor(.accentColor)
-                                Text("\(post.ups)").fontWeight(.bold).foregroundColor(.accentColor)
-                            }.font(.footnote)
-                        }.lineLimit(1)
-                        Spacer()
-                    }.padding(.horizontal)
-                }.foregroundColor(.primary)
+                HStack {
+                    Text(post.title).fontWeight(.heavy).multilineTextAlignment(.leading).lineLimit(nil).fixedSize(horizontal: false, vertical: true)
+                    Spacer()
+                }.padding(.horizontal)
                 switch(post.content) {
                 case .some:
                     HStack {
-                        Text(.init(post.content ?? "")).padding(.horizontal).multilineTextAlignment(.leading).padding(.top)
+                        Text(.init(post.content ?? "")).padding(.horizontal).multilineTextAlignment(.leading).padding(.top,2)
                         Spacer()
                     }
-                    Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)
+                    //                    Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)
                 case .none:
                     EmptyView()
-                    Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)
+                    //                    Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)
                 }
                 switch post.urls?[0].blacklist {
                 case false:
@@ -76,6 +61,26 @@ struct PostView: View {
                     EmptyView()
                     Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)
                 }
+                HStack {
+                    NavigationLink {
+                        HomeView(requestedSubreddit: post.subredditUnprefixed)
+                    } label: {
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text(post.subreddit).font(.footnote).fontWeight(.bold).foregroundColor(.accentColor)
+                                Text(post.author).font(.footnote)
+                            }
+                            HStack {
+                                Text(post.date.formatted(date: .abbreviated, time: .omitted))
+                                Image(systemName: "arrow.up").fontWeight(.bold).foregroundColor(.accentColor)
+                                Text("\(post.ups)").fontWeight(.bold).foregroundColor(.accentColor)
+                            }.font(.footnote)
+                        }.foregroundColor(.primary)
+                    }.padding(.top,2)
+                    Image(systemName: "chevron.right").foregroundColor(.accentColor)
+                    Spacer()
+                }.padding(.horizontal)
+                Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)
                 CommentView(subreddit: post.subredditUnprefixed, postID: post.id)
             }
         }
