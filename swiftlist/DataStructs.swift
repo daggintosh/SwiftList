@@ -53,6 +53,41 @@ struct Subreddit: Decodable, Identifiable {
     }
 }
 
+struct SubredditDisplay: Decodable {
+    let displayName: String // display_name
+    let displayNamePrefixed: String // display_name_prefixed
+    let header: URL? // banner_background_image
+    var icon: URL? // icon_img, community_icon
+    let publicDescription: String // public_description
+    let activeAccounts: Int64 // accounts_active
+    let members: Int64 // subscribers
+    let creationDate: Date // created
+    
+    enum SubKey: CodingKey {
+        case data
+    }
+    
+    enum SubKeys: CodingKey {
+        case display_name, display_name_prefixed, banner_background_image, icon_img, community_icon, public_description, accounts_active, subscribers, created
+    }
+    
+    init(from decoder: Decoder) throws {
+        let root = try decoder.container(keyedBy: SubKey.self)
+        let container = try root.nestedContainer(keyedBy: SubKeys.self, forKey: .data)
+        self.displayName = try container.decode(String.self, forKey: .display_name)
+        self.displayNamePrefixed = try container.decode(String.self, forKey: .display_name_prefixed)
+        self.header = try? container.decode(URL.self, forKey: .banner_background_image)
+        self.icon = try? container.decodeIfPresent(URL.self, forKey: .community_icon)
+        if self.icon == nil {
+            self.icon = try? container.decode(URL.self, forKey: .icon_img)
+        }
+        self.publicDescription = try container.decode(String.self, forKey: .public_description)
+        self.activeAccounts = try container.decode(Int64.self, forKey: .accounts_active)
+        self.members = try container.decode(Int64.self, forKey: .subscribers)
+        self.creationDate = try container.decode(Date.self, forKey: .created)
+    }
+}
+
 struct Posts: Decodable {
     let post: [Post]
     
@@ -140,14 +175,15 @@ struct Post: Identifiable,Decodable {
         let videoKeys = try? mediaContainer?.nestedContainer(keyedBy: VideoKeys.self, forKey: .reddit_video)
         let videoString = try? videoKeys?.decodeIfPresent(String.self, forKey: .hls_url)?.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
         
-        let thumburl = try post.decodeIfPresent(String.self, forKey: .thumbnail)
-        if thumburl == "nsfw" {
+        let thumburl = try? post.decodeIfPresent(String.self, forKey: .thumbnail)
+        switch thumburl {
+        case "nsfw":
             self.nsfw = true
-        }
-        else if thumburl != "default" {
+        case "default","self":
+            self.thumbnail = nil
+        default:
             self.thumbnail = URL(string: thumburl!)
         }
-        
         
         let urlString = try post.decodeIfPresent(String.self, forKey: .url)?.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
         

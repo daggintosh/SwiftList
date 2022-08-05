@@ -12,8 +12,48 @@ struct HomeView: View {
     @State private var posts: Posts?
     @State var requestedSubreddit: String? = nil
     
+    @State private var subredditInfo: SubredditDisplay?
+    
     var body: some View {
         List {
+            switch subredditInfo {
+            case .some:
+                ZStack {
+                    Rectangle().aspectRatio(4,contentMode: .fit).foregroundColor(.blue)
+                    switch subredditInfo?.header {
+                    case .some:
+                        AsyncImage(url: subredditInfo?.header) { Image in
+                            Image.resizable()
+                        } placeholder: {
+                            ProgressView().tint(.gray)
+                        }.aspectRatio(contentMode: .fill).layoutPriority(-1)
+                    case .none:
+                        EmptyView()
+                    }
+                    HStack {
+                        AsyncImage(url: subredditInfo?.icon) { Image in
+                            Image.resizable()
+                        } placeholder: {
+                            ProgressView().tint(.gray)
+                        }.aspectRatio(contentMode: .fit).mask {
+                            Circle()
+                        }.shadow(color: Color(.black), radius: 2)
+                        Text(subredditInfo?.displayNamePrefixed ?? "r/Null").fontWeight(.heavy).foregroundColor(.white).shadow(color: Color(.black), radius: 2)
+                        Spacer()
+                    }.padding().layoutPriority(-1)
+                }.listRowInsets(EdgeInsets()).listRowSeparator(.hidden)
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("\(subredditInfo?.activeAccounts ?? 0) active users")
+                        Text("\(subredditInfo?.members ?? 0) subscribers")
+                    }
+                    Text(subredditInfo?.publicDescription ?? "").font(.body)
+                    Text("Created on \(subredditInfo?.creationDate.formatted(date: .abbreviated, time: .omitted) ?? "")")
+                    Divider().frame(height:2).overlay(Color(.systemGray2))
+                }.font(.footnote).fontWeight(.bold)
+            case .none:
+                EmptyView()
+            }
             ForEach(posts?.post ?? []) { post in
                 VStack {
                     HStack {
@@ -34,11 +74,14 @@ struct HomeView: View {
                     Divider().frame(height:2).overlay(Color(.systemGray2))
                 }.padding(.horizontal).padding(.top).fixedSize(horizontal: false, vertical: true)
             }.listRowSeparator(.hidden).listRowInsets(EdgeInsets())
-        }.navigationTitle(requestedSubreddit ?? "Home").navigationBarTitleDisplayMode(.inline).listStyle(.plain).task {
+        }.navigationTitle(subredditInfo?.displayNamePrefixed ?? "Home").navigationBarTitleDisplayMode(.inline).listStyle(.plain).task {
             do {
                     if !doNotRequest {
                         await getKeychain()
                         posts = getPosts(subreddit: requestedSubreddit)
+                        if (requestedSubreddit != nil && requestedSubreddit != "all") {
+                            subredditInfo = getSubredditData(subreddit: requestedSubreddit)
+                        }
                         doNotRequest = true
                     }
             }

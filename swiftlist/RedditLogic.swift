@@ -160,3 +160,19 @@ func getComments(subreddit: String, id: String) -> Comments? {
     let result = sendRequest(request: URLRequest(url: apiURL), decodeType: RootComments.self, token: token)
     return (result as! RootComments).comments[1]
 }
+
+func getSubredditData(subreddit: String?) -> SubredditDisplay? {
+    if subreddit == nil {
+        return nil
+    }
+    
+    var apiURL = URL(string: "https://www.reddit.com")!
+    apiURL.appendPathComponent("/r/\(subreddit!)/about")
+    apiURL.appendPathExtension("json")
+    apiURL.append(queryItems: [
+        URLQueryItem(name: "raw_json", value: "1")
+    ])
+    
+    let result = sendRequest(request: URLRequest(url: apiURL), decodeType: SubredditDisplay.self)
+    return result as? SubredditDisplay
+}
