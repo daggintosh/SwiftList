@@ -15,16 +15,6 @@ struct SearchView: View {
     var body: some View {
         VStack {
             ZStack {
-                Rectangle().foregroundColor(Color(.systemGray5)).cornerRadius(10).layoutPriority(-1)
-                TextField("Search for a subreddit", text: $search).padding(10).focused($focused).scrollDismissesKeyboard(.immediately).onSubmit {
-                    if(search.trimmingCharacters(in: .whitespacesAndNewlines) != "") {
-                        focused = false
-                        subreddits = searchSubreddit(q: search)
-                    }
-                }
-            }.padding()
-            Spacer()
-            ZStack {
                 Rectangle().foregroundColor(Color(.systemBackground)).onTapGesture {
                     focused = false
                 }
@@ -52,6 +42,19 @@ struct SearchView: View {
                     }
                 }.listStyle(.plain)
             }
+            Spacer()
+            ZStack {
+                Rectangle().foregroundColor(Color(.systemGray5)).cornerRadius(10).layoutPriority(-1)
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                    TextField("Search for a subreddit", text: $search).focused($focused).scrollDismissesKeyboard(.immediately).onSubmit {
+                        if(search.trimmingCharacters(in: .whitespacesAndNewlines) != "") {
+                            focused = false
+                            subreddits = searchSubreddit(q: search)
+                        }
+                    }.submitLabel(.search)
+                }.padding(10)
+            }.padding().navigationTitle("Subreddit Search")
         }.onAppear {
             focused = true
         }
