@@ -82,8 +82,8 @@
 		1800B46B287A39D8004AFD64 /* swiftlist */ = {
 			isa = PBXGroup;
 			children = (
+				1800B470287A39D9004AFD64 /* Assets.xcassets */,
 				18808848287FF7D00057E6CA /* Launch Screen.storyboard */,
-				18BCF2C2287BBAE6009E3493 /* Info.plist */,
 				1800B46C287A39D8004AFD64 /* swiftlistApp.swift */,
 				184D505D289D681500023B20 /* Post */,
 				184D505E289D684400023B20 /* Logic */,
@@ -93,7 +93,7 @@
 				18D87965287A5900009B5AA0 /* AccountView.swift */,
 				180CF604287FD0940017E1AD /* Keychain.xcdatamodeld */,
 				180CF602287FC3960017E1AD /* Appchain.plist */,
-				1800B470287A39D9004AFD64 /* Assets.xcassets */,
+				18BCF2C2287BBAE6009E3493 /* Info.plist */,
 				1800B472287A39D9004AFD64 /* Preview Content */,
 			);
 			path = swiftlist;
