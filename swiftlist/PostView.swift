@@ -58,7 +58,7 @@ struct PostView: View {
                 switch(post.content) {
                 case .some:
                     HStack {
-                        Text(.init(post.content ?? "")).padding(.horizontal).multilineTextAlignment(.leading)
+                        Text(.init(post.content ?? "")).padding(.horizontal).multilineTextAlignment(.leading).padding(.top)
                         Spacer()
                     }
                     Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)

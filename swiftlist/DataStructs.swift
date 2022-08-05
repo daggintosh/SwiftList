@@ -85,6 +85,7 @@ struct Post: Identifiable,Decodable {
     var urls: [URL]? = nil
     var thumbnail: URL? = nil
     var embed: String? = nil
+    var nsfw: Bool? = false
     
     enum ItemKeys: CodingKey {
         case data
@@ -140,7 +141,13 @@ struct Post: Identifiable,Decodable {
         let videoString = try? videoKeys?.decodeIfPresent(String.self, forKey: .hls_url)?.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
         
         let thumburl = try post.decodeIfPresent(String.self, forKey: .thumbnail)
-        self.thumbnail = URL(string: thumburl ?? "https://google.com")
+        if thumburl == "nsfw" {
+            self.nsfw = true
+        }
+        else if thumburl != "default" {
+            self.thumbnail = URL(string: thumburl!)
+        }
+        
         
         let urlString = try post.decodeIfPresent(String.self, forKey: .url)?.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
         
