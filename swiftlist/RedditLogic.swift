@@ -107,7 +107,13 @@ func sendRequest(request: URLRequest, decodeType: Decodable.Type, token: String?
         
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
+#if DEBUG
+        print("DEBUG MODE")
         reqResult = try! decoder.decode(decodeType, from: data)
+#elseif RELEASE
+        print("PRODUCTION MODE")
+        reqResult = try? decoder.decode(decodeType, from: data)
+#endif
     }.resume()
     sem.wait()
     
