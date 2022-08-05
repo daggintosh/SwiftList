@@ -54,7 +54,7 @@ struct SearchView: View {
                         }
                     }.submitLabel(.search)
                 }.padding(10)
-            }.padding().navigationTitle("Subreddit Search")
+            }.padding(8).navigationTitle("Subreddit Search")
         }.onAppear {
             focused = true
         }

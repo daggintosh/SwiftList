@@ -44,18 +44,3 @@ func inferredView(post: Post) -> some View {
         }
     }
 }
-
-func inferredType(postType: String) -> some View {
-    return ZStack {
-        switch (postType) {
-        case "gallery":
-            Text("Gallery")
-        case "video":
-            Text("Video")
-        case "embed":
-            Text("Embedded")
-        default:
-            EmptyView()
-        }
-    }
-}

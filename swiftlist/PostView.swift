@@ -55,7 +55,6 @@ struct PostView: View {
                         Spacer()
                     }.padding(.horizontal)
                 }.foregroundColor(.primary)
-                Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)
                 switch(post.content) {
                 case .some:
                     HStack {
@@ -65,16 +64,17 @@ struct PostView: View {
                     Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)
                 case .none:
                     EmptyView()
+                    Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)
                 }
                 switch post.urls?[0].blacklist {
                 case false:
-                    HStack {
-                        Link("\(post.urls![0])", destination: post.urls![0]).foregroundColor(.accentColor).padding(.horizontal).multilineTextAlignment(.leading)
-                        Spacer()
-                    }
+                    Link("\(post.urls![0])", destination: post.urls![0]).foregroundColor(.accentColor).padding(.horizontal)
                     Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)
+                case true:
+                    EmptyView()
                 default:
                     EmptyView()
+                    Divider().frame(height:2).overlay(Color(.systemGray2)).padding(.horizontal)
                 }
                 CommentView(subreddit: post.subredditUnprefixed, postID: post.id)
             }

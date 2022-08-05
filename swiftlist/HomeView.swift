@@ -29,7 +29,6 @@ struct HomeView: View {
                             Image(systemName: "arrow.up").foregroundColor(.accentColor)
                             Text("\(post.ups)").foregroundColor(.accentColor)
                             Spacer()
-                            inferredType(postType: post.contentType)
                         }.padding(.top).fontWeight(.bold)
                     }
                     Divider().frame(height:2).overlay(Color(.systemGray2))
