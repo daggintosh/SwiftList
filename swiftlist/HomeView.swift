@@ -34,11 +34,14 @@ struct HomeView: View {
                         AsyncImage(url: subredditInfo?.icon) { Image in
                             Image.resizable()
                         } placeholder: {
-                            ProgressView().tint(.gray)
+                            ZStack {
+                                Circle().stroke(.white, lineWidth: 5).foregroundColor(.blue)
+                                Text("r/").foregroundColor(.white).fontWeight(.heavy).font(.title3)
+                            }
                         }.aspectRatio(contentMode: .fit).mask {
                             Circle()
                         }.shadow(color: Color(.black), radius: 2)
-                        Text(subredditInfo?.displayNamePrefixed ?? "r/Null").fontWeight(.heavy).foregroundColor(.white).shadow(color: Color(.black), radius: 2)
+                        Text(subredditInfo?.headline ?? "Null").fontWeight(.heavy).foregroundColor(.white).shadow(color: Color(.black), radius: 2)
                         Spacer()
                     }.padding().layoutPriority(-1)
                 }.listRowInsets(EdgeInsets()).listRowSeparator(.hidden)

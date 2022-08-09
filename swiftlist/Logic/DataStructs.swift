@@ -56,6 +56,7 @@ struct Subreddit: Decodable, Identifiable {
 struct SubredditDisplay: Decodable {
     let displayName: String // display_name
     let displayNamePrefixed: String // display_name_prefixed
+    let headline: String // title
     let header: URL? // banner_background_image
     var icon: URL? // icon_img, community_icon
     let publicDescription: String // public_description
@@ -68,7 +69,7 @@ struct SubredditDisplay: Decodable {
     }
     
     enum SubKeys: CodingKey {
-        case display_name, display_name_prefixed, banner_background_image, icon_img, community_icon, public_description, accounts_active, subscribers, created
+        case display_name, display_name_prefixed, banner_background_image, icon_img, community_icon, public_description, accounts_active, subscribers, created, title
     }
     
     init(from decoder: Decoder) throws {
@@ -85,6 +86,7 @@ struct SubredditDisplay: Decodable {
         self.activeAccounts = try container.decode(Int64.self, forKey: .accounts_active)
         self.members = try container.decode(Int64.self, forKey: .subscribers)
         self.creationDate = try container.decode(Date.self, forKey: .created)
+        self.headline = try container.decode(String.self, forKey: .title)
     }
 }
 
