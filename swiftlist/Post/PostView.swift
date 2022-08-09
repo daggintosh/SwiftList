@@ -13,8 +13,8 @@ struct PostView: View {
     @State private var comments: Comments?
     
     @State private var galleryScale: CGFloat = 1.0
-    @State private var galleryTransform: CGSize = CGSize.zero
-    @State private var galleryLast: CGSize = CGSize.zero
+    @State private var galleryTransform: CGSize = CGSize()
+    @State private var galleryLast: CGSize = CGSize()
     var body: some View {
         VStack {
             ScrollView {
@@ -37,19 +37,23 @@ struct PostView: View {
                                     Image.resizable()
                                 } placeholder: {
                                     
-                                }.offset(self.galleryTransform).aspectRatio(contentMode: .fit).gesture(DragGesture().onChanged({ value in
+                                }.offset(galleryTransform).aspectRatio(contentMode: .fit).gesture(DragGesture().onChanged({ value in
                                     let newVal = CGSize(width:  value.translation.width + galleryLast.width, height: value.translation.height + galleryLast.height)
-                                    self.galleryTransform = newVal
+                                    galleryTransform = newVal
                                 }).onEnded({ _ in
-                                    self.galleryLast = galleryTransform
+                                    galleryLast = galleryTransform
                                 })).gesture(MagnificationGesture().onChanged({ value in
-                                    self.galleryScale = value * galleryScale
+                                    galleryScale = value * galleryScale
                                 }).onEnded({ _ in
                                     if(galleryScale < 1) {
-                                        self.galleryScale = 1
+                                        galleryScale = 1
                                     }
-                                })).scaleEffect(self.galleryScale)
-                            }.clipped()
+                                })).scaleEffect(galleryScale)
+                            }.clipped().onAppear {
+                                galleryScale = 1.0
+                                galleryTransform = CGSize()
+                                galleryLast = CGSize()
+                            }
                         } label: {
                             AsyncImage(url: element) { Image in
                                 Image.resizable()
