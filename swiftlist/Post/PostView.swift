@@ -12,6 +12,9 @@ struct PostView: View {
     @State var post: Post
     @State private var comments: Comments?
     
+    @State private var galleryScale: CGFloat = 1.0
+    @State private var galleryTransform: CGSize = CGSize.zero
+    @State private var galleryLast: CGSize = CGSize.zero
     var body: some View {
         VStack {
             ScrollView {
@@ -27,11 +30,34 @@ struct PostView: View {
                         AVView(videoURL: post.urls![0]).aspectRatio(16/9, contentMode: .fit)
                     }
                     ForEach(post.urls!.reversed(), id: \.self) { element in
-                        AsyncImage(url: element) { Image in
-                            Image.resizable()
-                        } placeholder: {
-                            
-                        }.aspectRatio(contentMode: .fit).padding(.bottom, 1)
+                        NavigationLink {
+                            ZStack {
+                                Color.clear
+                                AsyncImage(url: element) { Image in
+                                    Image.resizable()
+                                } placeholder: {
+                                    
+                                }.offset(self.galleryTransform).aspectRatio(contentMode: .fit).gesture(DragGesture().onChanged({ value in
+                                    let newVal = CGSize(width:  value.translation.width + galleryLast.width, height: value.translation.height + galleryLast.height)
+                                    self.galleryTransform = newVal
+                                }).onEnded({ _ in
+                                    self.galleryLast = galleryTransform
+                                })).gesture(MagnificationGesture().onChanged({ value in
+                                    self.galleryScale = value * galleryScale
+                                }).onEnded({ _ in
+                                    if(galleryScale < 1) {
+                                        self.galleryScale = 1
+                                    }
+                                })).scaleEffect(self.galleryScale)
+                            }.clipped()
+                        } label: {
+                            AsyncImage(url: element) { Image in
+                                Image.resizable()
+                            } placeholder: {
+                                
+                            }.aspectRatio(contentMode: .fit).padding(.bottom, 1)
+                        }
+
                     }
                 case .none:
                     EmptyView()
